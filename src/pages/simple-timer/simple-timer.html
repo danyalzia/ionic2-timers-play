@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Simple Timer</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item text-wrap><b>First Timer (starts after two seconds): </b> {{tickFirst}}</ion-item>
+		<ion-item text-wrap><b>Second Timer (starts after three seconds): </b> {{tickSecond}}</ion-item>
+		<ion-item text-wrap><b>Third Timer (starts after four seconds): </b> {{tickThird}}</ion-item>
+		<ion-item text-wrap><b>Fourth Timer: </b> {{tickFourth}}</ion-item>
+	</ion-list>
+	
+	<ion-label><b>Enter the time in seconds (default is 60): </b></ion-label>
+	<ion-input type="text" #time [(ngModel)]="timeInSeconds"></ion-input>
+	<button ion-button block (click)="setTime(time.value)">Save Time</button>
+
+	<ion-card>
+        <ion-item text-wrap>
+            <h1 text-center *ngIf="timeInSeconds && timeInSeconds > 0">{{displayTime}}</h1>
+        </ion-item>
+
+		  <ion-fab bottom right *ngIf="runTimer && hasStarted && !hasFinished">
+			<button ion-fab (click)="pauseTimer()">
+		    <ion-icon name="pause"></ion-icon>
+		    </button>
+		  </ion-fab>
+		  <ion-fab bottom right *ngIf="!runTimer && hasStarted && !hasFinished">
+			<button ion-fab (click)="resumeTimer()">
+		    <ion-icon name="play"></ion-icon>
+		    </button>
+		  </ion-fab>
+		  <ion-fab bottom right *ngIf="!hasStarted">
+			<button ion-fab (click)="startTimer()" item-right>
+		    <ion-icon name="play"></ion-icon>
+		    </button>
+		  </ion-fab>
+		  <ion-fab bottom left *ngIf="!runTimer && (hasStarted || hasFinished) || hasFinished">
+			<button ion-fab color="danger" (click)="initTimer()" item-left>
+			<ion-icon name="refresh"></ion-icon>
+			</button>
+		  </ion-fab>
+	</ion-card>  	
+</ion-content>

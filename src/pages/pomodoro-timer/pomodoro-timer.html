@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Pomodoro Timer</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<div>
+
+  <ion-fab top right>
+    <button ion-fab (click)="createNew()">
+  <ion-icon name="add"></ion-icon>
+  </button>
+  </ion-fab>
+  
+  <ion-item>
+    <h1 text-center>{{displayTime}}</h1>
+  </ion-item>
+  
+  <ion-card *ngFor="let array of timersArray; let i = index;">
+    <ion-card-content *ngIf="i!=0">
+		<h2 text-center><b>#{{i}}</b> {{array.stoppedAt}}</h2>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-fab bottom right *ngIf="runTimer && hasStarted && !hasFinished">
+    <button ion-fab (click)="pauseTimer()">
+  <ion-icon name="pause"></ion-icon>
+  </button>
+  </ion-fab>
+  <ion-fab bottom right *ngIf="!runTimer && hasStarted && !hasFinished">
+    <button ion-fab (click)="resumeTimer()">
+	<ion-icon name="play"></ion-icon>
+	</button>
+  </ion-fab>
+  <ion-fab bottom right *ngIf="!hasStarted">
+    <button ion-fab (click)="startTimer()" item-right>
+	<ion-icon name="play"></ion-icon>
+	</button>
+  </ion-fab>
+  <ion-fab bottom left *ngIf="!runTimer && (hasStarted || hasFinished) || hasFinished">
+    <button ion-fab color="danger" (click)="initTimer()" item-left>
+	<ion-icon name="refresh"></ion-icon>
+    </button>
+  </ion-fab>
+</div>
+
+</ion-content>
